@@ -43,7 +43,7 @@ public class FlickerAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         //convert view, view recyclée
         //Si la view est nulle, on la crée
         if (convertView == null) {
@@ -66,9 +66,16 @@ public class FlickerAdapter extends BaseAdapter {
         Button btnResetFlick = (Button) convertView.findViewById(R.id.btn_reset);
 //
         // Pour mettre 2 boutons cliquables l'un sous l'autre
-//        btnResetFlick.setFocusable(false);
-//        btnResetFlick.setFocusableInTouchMode(false);
+        btnResetFlick.setFocusable(false);
+        btnResetFlick.setFocusableInTouchMode(false);
 
+        btnResetFlick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                classPhoto.remove(classPhoto.get(position));
+                notifyDataSetChanged();
+            }
+        });
 
         return  convertView;
     }
