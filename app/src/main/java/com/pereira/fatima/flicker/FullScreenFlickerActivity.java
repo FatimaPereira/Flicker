@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FullScreenFlicker extends AppCompatActivity {
+public class FullScreenFlickerActivity extends AppCompatActivity {
 
     List<ClassPhoto> classPhoto = new ArrayList<>();
 
@@ -38,14 +38,13 @@ public class FullScreenFlicker extends AppCompatActivity {
 
         Button btnResetFullScreen = (Button) findViewById(R.id.btn_reset_fullscreen);
 
-//        btnResetFullScreen.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                classPhoto.remove(classPhoto.get(position));
-//               Intent intent = new Intent(FullScreenFlicker.this, MainActivity.class);
-//
-//            }
-//        });
+        btnResetFullScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              finish();
+
+            }
+        });
 
     }
 }

@@ -3,10 +3,12 @@ package com.pereira.fatima.flicker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,10 +38,23 @@ public class MainActivity extends AppCompatActivity {
                 ClassPhoto image = (ClassPhoto) flickerAdapter.getItem(i);
                 String title = image.getTitle();
                 String url = image.getUrl();
-                Intent intent = new Intent(MainActivity.this, FullScreenFlicker.class);
+                Intent intent = new Intent(MainActivity.this, FullScreenFlickerActivity.class);
                 intent.putExtra("Title",title);
                 intent.putExtra("Url",url);
                 startActivity(intent);
+            }
+        });
+
+
+        final EditText fieldSearch = (EditText) findViewById(R.id.search_textfield);
+
+        Button btnSearch = (Button) findViewById(R.id.btn_search);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+
+            //          Toast message d'alerte ou pop-up
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, fieldSearch.getText().toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
