@@ -10,9 +10,9 @@ import java.util.List;
  */
 
 public class FlickrPhotosDto {
-    private long page;
-    private long pages;
-    private long perpage;
+    private String page;
+    private String pages;
+    private String perpage;
     private String total;
     private List<PhotoDto> photo = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class FlickrPhotosDto {
     //***************************************************
 
 
-    public FlickrPhotosDto(long page, long pages, long perpage, String total, List<PhotoDto> photo) {
+    public FlickrPhotosDto(String page, String pages, String perpage, String total, List<PhotoDto> photo) {
         this.page = page;
         this.pages = pages;
         this.perpage = perpage;
@@ -37,27 +37,28 @@ public class FlickrPhotosDto {
     //***************************************************
     //            GETTER & SETTER
     //***************************************************
-    public long getPage() {
+
+    public String getPage() {
         return page;
     }
 
-    public void setPage(long page) {
+    public void setPage(String page) {
         this.page = page;
     }
 
-    public long getPages() {
+    public String getPages() {
         return pages;
     }
 
-    public void setPages(long pages) {
+    public void setPages(String pages) {
         this.pages = pages;
     }
 
-    public long getPerpage() {
+    public String getPerpage() {
         return perpage;
     }
 
-    public void setPerpage(long perpage) {
+    public void setPerpage(String perpage) {
         this.perpage = perpage;
     }
 

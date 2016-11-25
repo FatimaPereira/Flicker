@@ -9,18 +9,18 @@ public class PhotoDto {
     String owner;
     String secret;
     String server;
-    long farm;
+    String farm;
     String title;
-    long ispublic;
-    long isfriend;
-    long isfamily;
+    String ispublic;
+    String isfriend;
+    String isfamily;
 
 
     //***************************************************
     //            CONSTRUCTEUR
     //***************************************************
 
-    public PhotoDto(String id, String owner, String secret, String server, long farm, String title, long ispublic, long isfriend, long isfamily) {
+    public PhotoDto(String id, String owner, String secret, String server, String farm, String title, String ispublic, String isfriend, String isfamily) {
         this.id = id;
         this.owner = owner;
         this.secret = secret;
@@ -31,6 +31,7 @@ public class PhotoDto {
         this.isfriend = isfriend;
         this.isfamily = isfamily;
     }
+
 
     //Constructeur vide (normalement par défaut)
     // sauf quand on utilise un autre constructeur, il faut le rajouter car celui par défaut est écrasé
@@ -44,6 +45,7 @@ public class PhotoDto {
     //***************************************************
     //            GETTER & SETTER
     //***************************************************
+
     public String getId() {
         return id;
     }
@@ -76,11 +78,11 @@ public class PhotoDto {
         this.server = server;
     }
 
-    public long getFarm() {
+    public String getFarm() {
         return farm;
     }
 
-    public void setFarm(long farm) {
+    public void setFarm(String farm) {
         this.farm = farm;
     }
 
@@ -92,27 +94,27 @@ public class PhotoDto {
         this.title = title;
     }
 
-    public long getIspublic() {
+    public String getIspublic() {
         return ispublic;
     }
 
-    public void setIspublic(long ispublic) {
+    public void setIspublic(String ispublic) {
         this.ispublic = ispublic;
     }
 
-    public long getIsfriend() {
+    public String getIsfriend() {
         return isfriend;
     }
 
-    public void setIsfriend(long isfriend) {
+    public void setIsfriend(String isfriend) {
         this.isfriend = isfriend;
     }
 
-    public long getIsfamily() {
+    public String getIsfamily() {
         return isfamily;
     }
 
-    public void setIsfamily(long isfamily) {
+    public void setIsfamily(String isfamily) {
         this.isfamily = isfamily;
     }
 }
