@@ -31,6 +31,12 @@ public class FlickerAdapter extends BaseAdapter {
         return classPhoto.size();
     }
 
+    public void setClassPhoto(List<ClassPhoto> classPhoto) {
+        this.classPhoto = classPhoto;
+        // Ne jamais oublier pour recharger les images
+        notifyDataSetChanged();
+    }
+
     @Override
     // Ne pas oublier de changer Object en String ou ClassPhoto
     public ClassPhoto getItem(int position) {

@@ -13,13 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:paddingBottom="10dp">
 
         <EditText
             android:id="@+id/search_textfield"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="12" />
+            android:layout_weight="10" />
 
         <Button
             android:id="@+id/btn_search"
