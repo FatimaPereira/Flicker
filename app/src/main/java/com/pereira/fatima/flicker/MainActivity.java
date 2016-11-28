@@ -60,8 +60,9 @@ public class MainActivity extends AppCompatActivity {
             // Toast message d'alerte ou pop-up
             @Override
             public void onClick(View view) {
-                classPhoto = flickerService.getClassPhotos();
+                flickerService.getClassPhotos(fieldSearch.getText().toString());
                 flickerAdapter.setClassPhoto(classPhoto);
+
                 //Toast.makeText(MainActivity.this, fieldSearch.getText().toString(), Toast.LENGTH_LONG).show();
             }
         });
