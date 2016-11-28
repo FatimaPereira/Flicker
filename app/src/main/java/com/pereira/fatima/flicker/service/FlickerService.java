@@ -10,6 +10,8 @@ import com.pereira.fatima.flicker.ClassPhoto;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Retrofit;
+
 public class FlickerService extends Service {
     private final IBinder binder = new ServiceBinder();
     List<ClassPhoto> classPhotos = new ArrayList<>();
@@ -32,4 +34,10 @@ public class FlickerService extends Service {
             return FlickerService.this;
         }
     }
+
+    //***************************************************
+    //           RETROFIT
+    //***************************************************
+
+    // Retrofit retrofit = new Retrofit.Builder();
 }

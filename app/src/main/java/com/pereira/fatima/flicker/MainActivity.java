@@ -52,24 +52,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         final EditText fieldSearch = (EditText) findViewById(R.id.search_textfield);
 
         Button btnSearch = (Button) findViewById(R.id.btn_search);
         btnSearch.setOnClickListener(new View.OnClickListener() {
 
-            //          Toast message d'alerte ou pop-up
+            // Toast message d'alerte ou pop-up
             @Override
             public void onClick(View view) {
-                classPhoto=flickerService.getClassPhotos();
+                classPhoto = flickerService.getClassPhotos();
                 flickerAdapter.setClassPhoto(classPhoto);
-            //    Toast.makeText(MainActivity.this, fieldSearch.getText().toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this, fieldSearch.getText().toString(), Toast.LENGTH_LONG).show();
             }
         });
 
     }
-
-
 
     //***************************************************
     //            WEB SERVICE
