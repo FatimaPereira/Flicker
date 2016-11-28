@@ -28,6 +28,8 @@ public class FlickerService extends Service {
     FlickerRetrofit retrofitService;
     String url = "https://www.flickr.com/";
 
+    private FlickerResponseListener flickerResponseListener;
+
     public void getClassPhotos(String query) {
 
         //***************************************************
@@ -35,15 +37,17 @@ public class FlickerService extends Service {
         //***************************************************
 
 
-        Call<FlickrResponseDto> flickrResponseRetrofitCall = retrofitService.getPhotosRetrofit(query,getResources().getString(R.string.flicker_api_key));
+        final Call<FlickrResponseDto> flickrResponseRetrofitCall = retrofitService.getPhotosRetrofit(query,getResources().getString(R.string.flicker_api_key));
         flickrResponseRetrofitCall.enqueue(new Callback<FlickrResponseDto>()
 
         {
             @Override
             public void onResponse (Call < FlickrResponseDto > call,
                                     Response< FlickrResponseDto > response){
+                // On reçoit la liste et on la converti
                 List<ClassPhoto> classPhotos = new ClassConverter().convert(response.body());
-            Log.e("ON RESPONSE", classPhotos.toString());
+                flickerResponseListener.onPhotosReceived(classPhotos);
+            //Log.e("ON RESPONSE", classPhotos.toString());
 
             }
 
@@ -51,14 +55,12 @@ public class FlickerService extends Service {
             @Override
             public void onFailure (Call < FlickrResponseDto > call,
                                    Throwable t){
-            Log.e("ON RESPONSE", "ok" );
+            //Log.e("ON RESPONSE", "ok" );
             }
 
         });
 
-
     }
-
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -73,7 +75,7 @@ public class FlickerService extends Service {
         }
     }
 
-
-
-
+    public void setFlickerResponseListener(FlickerResponseListener flickerResponseListener) {
+        this.flickerResponseListener = flickerResponseListener;
+    }
 }

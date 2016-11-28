@@ -77,4 +77,15 @@ public class FlickrPhotosDto {
     public void setPhoto(List<PhotoDto> photo) {
         this.photo = photo;
     }
+
+    @Override
+    public String toString() {
+        return "FlickrPhotosDto{" +
+                "page='" + page + '\'' +
+                ", pages='" + pages + '\'' +
+                ", perpage='" + perpage + '\'' +
+                ", total='" + total + '\'' +
+                ", photo=" + photo +
+                '}';
+    }
 }

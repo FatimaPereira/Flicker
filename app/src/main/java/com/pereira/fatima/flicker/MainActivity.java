@@ -12,14 +12,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.pereira.fatima.flicker.service.FlickerService;
+import com.pereira.fatima.flicker.service.FlickerResponseListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FlickerResponseListener {
 
     ListView listView;
     FlickerAdapter flickerAdapter = new FlickerAdapter();
@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
                                        IBinder service) {
             FlickerService.ServiceBinder binder = (FlickerService.ServiceBinder) service;
             flickerService = binder.getService();
+            flickerService.setFlickerResponseListener(MainActivity.this);
+
             bound = true;
         }
         @Override
@@ -104,5 +106,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
+    @Override
+    public void onPhotosReceived(List<ClassPhoto> classPhotos) {
+        flickerAdapter.setClassPhoto(classPhotos);
+    }
 }
