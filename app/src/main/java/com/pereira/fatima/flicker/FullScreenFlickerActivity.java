@@ -13,13 +13,20 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class FullScreenFlickerActivity extends AppCompatActivity {
 
     List<ClassPhoto> classPhoto = new ArrayList<>();
 
-    TextView titreFullscreen;
-    TextView urlFullscreen;
-    ImageView imageFullscreen;
+    //TextView titreFullscreen;
+    //TextView urlFullscreen;
+    //ImageView imageFullscreen;
+    @BindView(R.id.titre_fullscreen)TextView titreFullscreen;
+    @BindView(R.id.url_fullscreen)TextView urlFullscreen;
+    @BindView(R.id.image_fullscreen)ImageView imageFullscreen;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +34,13 @@ public class FullScreenFlickerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full_screen_flicker);
         String title = getIntent().getStringExtra("Title");
         String url = getIntent().getStringExtra("Url");
+        ButterKnife.bind(this);
+       //titreFullscreen = (TextView) findViewById(R.id.titre_fullscreen);
 
-        titreFullscreen = (TextView) findViewById(R.id.titre_fullscreen);
         titreFullscreen.setText(title);
-        urlFullscreen = (TextView) findViewById(R.id.url_fullscreen);
+        //urlFullscreen = (TextView) findViewById(R.id.url_fullscreen);
         urlFullscreen.setText(url);
-        imageFullscreen = (ImageView) findViewById(R.id.image_fullscreen);
+        //imageFullscreen = (ImageView) findViewById(R.id.image_fullscreen);
         Picasso.with(this).load(url).into(imageFullscreen);
 
 

@@ -12,6 +12,6 @@ import retrofit2.http.Query;
 
 public interface FlickerRetrofit {
 
-    @GET("services/rest/?method=flickr.photos.search&per_page=5&format=json&nojsoncallback=1")
+    @GET("services/rest/?method=flickr.photos.search&per_page=20&format=json&nojsoncallback=1")
     Call<FlickrResponseDto> getPhotosRetrofit(@Query("tags") String query, @Query("api_key")String apiKey);
 }
