@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--************** APPLICATION ****************-->
     <LinearLayout
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp">
 
-        <!--************** APPLICATION ****************-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,9 +55,6 @@
          android:orientation="vertical"
          android:layout_height="match_parent"
          android:layout_gravity="start"
-         android:choiceMode="singleChoice"
-         android:divider="@android:color/transparent"
-         android:dividerHeight="0dp"
          android:background="#111">
 
          <Button
@@ -73,12 +71,12 @@
 
          <Spinner
              android:id="@+id/nav_spinner"
-             android:layout_width="fill_parent"
+             android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:textAlignment="center"
              android:paddingLeft="50dp"
              android:background="@android:drawable/btn_dropdown"
-             android:text="Spinner"/>
+             />
 
      </LinearLayout>
 
