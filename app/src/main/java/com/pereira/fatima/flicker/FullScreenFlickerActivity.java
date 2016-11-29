@@ -34,15 +34,17 @@ public class FullScreenFlickerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full_screen_flicker);
         String title = getIntent().getStringExtra("Title");
         String url = getIntent().getStringExtra("Url");
+
+        //********** ButterKnife *******************
         ButterKnife.bind(this);
+
+
        //titreFullscreen = (TextView) findViewById(R.id.titre_fullscreen);
-
-        titreFullscreen.setText(title);
         //urlFullscreen = (TextView) findViewById(R.id.url_fullscreen);
-        urlFullscreen.setText(url);
         //imageFullscreen = (ImageView) findViewById(R.id.image_fullscreen);
+        titreFullscreen.setText(title);
+        urlFullscreen.setText(url);
         Picasso.with(this).load(url).into(imageFullscreen);
-
 
         Button btnResetFullScreen = (Button) findViewById(R.id.btn_reset_fullscreen);
 
