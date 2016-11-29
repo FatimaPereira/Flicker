@@ -71,6 +71,15 @@
              android:layout_height="wrap_content"
              android:text="Historique"/>
 
+         <Spinner
+             android:id="@+id/nav_spinner"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:textAlignment="center"
+             android:paddingLeft="50dp"
+             android:background="@android:drawable/btn_dropdown"
+             android:text="Spinner"/>
+
      </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
