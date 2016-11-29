@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.pereira.fatima.flicker.service.FlickerService;
 import com.pereira.fatima.flicker.service.FlickerResponseListener;
@@ -19,11 +20,16 @@ import com.pereira.fatima.flicker.service.FlickerResponseListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 public class MainActivity extends AppCompatActivity implements FlickerResponseListener {
 
     ListView listView;
     FlickerAdapter flickerAdapter = new FlickerAdapter();
     List<ClassPhoto> classPhoto = new ArrayList<>();
+
+    @BindView(R.id.nav_search) Button navSearch;
+    @BindView(R.id.nav_historique) Button navHistorique;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +68,11 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
             public void onClick(View view) {
                 flickerService.getClassPhotos(fieldSearch.getText().toString());
                 flickerAdapter.setClassPhoto(classPhoto);
-
                 //Toast.makeText(MainActivity.this, fieldSearch.getText().toString(), Toast.LENGTH_LONG).show();
             }
         });
+
+
 
     }
 
