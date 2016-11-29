@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
     FlickerAdapter flickerAdapter = new FlickerAdapter();
     List<ClassPhoto> classPhoto = new ArrayList<>();
 
-
+    private SharedPreferences sharedPreferences;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences = this.getPreferences(MODE_PRIVATE);
 
         //***** ButterKnife ********************
         ButterKnife.bind(this);
@@ -75,8 +78,23 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
+
         btnNavSpinner.setAdapter(adapter);
 
+        //***** ENREGISTREMENT VALEUR DANS PREFERENCES ********************
+        btnNavSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+             @Override
+             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Key", flickerAdapter.getItem(i).toString());
+                editor.commit();
+             }
+
+             @Override
+             public void onNothingSelected(AdapterView<?> adapterView) {
+
+             }
+        });
 
 //    flickerAdapter.classPhoto.add(new ClassPhoto("Chat","http://media.koreus.com/201409/109-insolite-34.jpg"));
 //    flickerAdapter.classPhoto.add(new ClassPhoto("Titre","http://media.koreus.com/201409/109-insolite-34.jpg"));
@@ -171,6 +189,8 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
     public void navHistorique(Button btnNavHistorique) {
 
     }
+
+
 
 
 

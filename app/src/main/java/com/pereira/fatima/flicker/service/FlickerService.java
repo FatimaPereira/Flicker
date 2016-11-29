@@ -2,9 +2,11 @@ package com.pereira.fatima.flicker.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.google.gson.Gson;
 import com.pereira.fatima.flicker.ClassPhoto;
@@ -21,6 +23,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.pereira.fatima.flicker.R.array.number_array;
+
 public class FlickerService extends Service {
     private final IBinder binder = new ServiceBinder();
     List<ClassPhoto> classPhotos = new ArrayList<>();
@@ -29,6 +33,8 @@ public class FlickerService extends Service {
     String url = "https://www.flickr.com/";
 
     private FlickerResponseListener flickerResponseListener;
+    //ArrayAdapter<CharSequence> adapter = new ArrayAdapter;
+    //SharedPreferences.Editor editor = preferences.edit();
 
     public void getClassPhotos(String query) {
 
@@ -37,14 +43,16 @@ public class FlickerService extends Service {
         //***************************************************
 
 
-        final Call<FlickrResponseDto> flickrResponseRetrofitCall = retrofitService.getPhotosRetrofit(query,getResources().getString(R.string.flicker_api_key));
+        final Call<FlickrResponseDto> flickrResponseRetrofitCall =
+                retrofitService.getPhotosRetrofit(query,getResources().getString(R.string.flicker_api_key),
+                        getResources().get(R.array.number_array));
         flickrResponseRetrofitCall.enqueue(new Callback<FlickrResponseDto>()
 
         {
             @Override
             public void onResponse (Call < FlickrResponseDto > call,
                                     Response< FlickrResponseDto > response){
-                // On reçoit la liste et on la converti
+                // On reçoit la liste et i
                 List<ClassPhoto> classPhotos = new ClassConverter().convert(response.body());
                 flickerResponseListener.onPhotosReceived(classPhotos);
             //Log.e("ON RESPONSE", classPhotos.toString());
