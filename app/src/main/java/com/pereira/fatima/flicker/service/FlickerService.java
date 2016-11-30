@@ -36,7 +36,7 @@ public class FlickerService extends Service {
     //ArrayAdapter<CharSequence> adapter = new ArrayAdapter;
     //SharedPreferences.Editor editor = preferences.edit();
 
-    public void getClassPhotos(String query) {
+    public void getClassPhotos(String query, String perPage) {
 
         //***************************************************
         //           RETROFIT
@@ -44,7 +44,7 @@ public class FlickerService extends Service {
 
 
         final Call<FlickrResponseDto> flickrResponseRetrofitCall =
-                retrofitService.getPhotosRetrofit(query,getResources().getString(R.string.flicker_api_key));
+                retrofitService.getPhotosRetrofit(query,getResources().getString(R.string.flicker_api_key),perPage);
         flickrResponseRetrofitCall.enqueue(new Callback<FlickrResponseDto>()
 
         {

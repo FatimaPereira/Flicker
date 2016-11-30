@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -41,11 +42,13 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
 
     private SharedPreferences sharedPreferences;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    ArrayAdapter<CharSequence> adapter;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.nav_search) Button btnNavSearch;
     @BindView(R.id.nav_historique) Button btnNavHistorique;
     @BindView(R.id.nav_spinner) Spinner btnNavSpinner;
+    @BindView(R.id.field_search_full) LinearLayout fieldSearchLayout;
 
     String titleNavDrawer;
     String titleNav;
@@ -66,12 +69,12 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
                 drawerLayout,
                 R.string.drawer_open,
                 R.string.drawer_close) ;
-
         // Set the drawer toggle as the DrawerListener
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         initSpinner();
+
 
 
 //    flickerAdapter.classPhoto.add(new ClassPhoto("Chat","http://media.koreus.com/201409/109-insolite-34.jpg"));
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
             // Toast message d'alerte ou pop-up
             @Override
             public void onClick(View view) {
-                flickerService.getClassPhotos(fieldSearch.getText().toString());
+                flickerService.getClassPhotos(fieldSearch.getText().toString(), sharedPreferences.getString(spinnerKey,"5"));
                 flickerAdapter.setClassPhoto(classPhoto);
                 //Toast.makeText(MainActivity.this, fieldSearch.getText().toString(), Toast.LENGTH_LONG).show();
             }
@@ -169,12 +172,15 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
     //***************************************************
     @OnClick(R.id.nav_search)
     public void navSearch(Button btnNavSearch) {
-
+        fieldSearchLayout.setVisibility(View.VISIBLE);
+        //Fermer le Drawer en cliquant
+        drawerLayout.closeDrawers();
     }
 
     @OnClick(R.id.nav_historique)
     public void navHistorique(Button btnNavHistorique) {
-
+        fieldSearchLayout.setVisibility(View.GONE);
+        drawerLayout.closeDrawers();
     }
 
 
@@ -213,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
 
     private void initSpinner() {
         //***** SPINNER ********************
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+        adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.number_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
