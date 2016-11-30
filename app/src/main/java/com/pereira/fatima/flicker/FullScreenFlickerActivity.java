@@ -1,8 +1,7 @@
 package com.pereira.fatima.flicker;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,19 +12,16 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class FullScreenFlickerActivity extends AppCompatActivity {
 
     List<ClassPhoto> classPhoto = new ArrayList<>();
 
-    //TextView titreFullscreen;
-    //TextView urlFullscreen;
-    //ImageView imageFullscreen;
-    @BindView(R.id.titre_fullscreen)TextView titreFullscreen;
-    @BindView(R.id.url_fullscreen)TextView urlFullscreen;
-    @BindView(R.id.image_fullscreen)ImageView imageFullscreen;
+    TextView titreFullscreen;
+    TextView urlFullscreen;
+    ImageView imageFullscreen;
+    //@BindView(R.id.titre_fullscreen)TextView titreFullscreen;
+    //@BindView(R.id.url_fullscreen)TextView urlFullscreen;
+    //@BindView(R.id.image_fullscreen)ImageView imageFullscreen;
 
 
     @Override
@@ -36,12 +32,12 @@ public class FullScreenFlickerActivity extends AppCompatActivity {
         String url = getIntent().getStringExtra("Url");
 
         //********** ButterKnife *******************
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
 
 
-       //titreFullscreen = (TextView) findViewById(R.id.titre_fullscreen);
-        //urlFullscreen = (TextView) findViewById(R.id.url_fullscreen);
-        //imageFullscreen = (ImageView) findViewById(R.id.image_fullscreen);
+        titreFullscreen = (TextView) findViewById(R.id.titre_fullscreen);
+        urlFullscreen = (TextView) findViewById(R.id.url_fullscreen);
+        imageFullscreen = (ImageView) findViewById(R.id.image_fullscreen);
         titreFullscreen.setText(MainActivity.TITLE);
         urlFullscreen.setText(MainActivity.URL);
         Picasso.with(this).load(url).into(imageFullscreen);
@@ -51,7 +47,7 @@ public class FullScreenFlickerActivity extends AppCompatActivity {
         btnResetFullScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              finish();
+                finish();
 
             }
         });

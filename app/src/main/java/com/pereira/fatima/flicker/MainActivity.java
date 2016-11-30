@@ -27,10 +27,6 @@ import com.pereira.fatima.flicker.service.FlickerService;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class MainActivity extends AppCompatActivity implements FlickerResponseListener {
 
     public static final String spinnerKey = "key";
@@ -44,11 +40,17 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
     ActionBarDrawerToggle actionBarDrawerToggle;
     ArrayAdapter<CharSequence> adapter;
 
-    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
-    @BindView(R.id.nav_search) Button btnNavSearch;
-    @BindView(R.id.nav_historique) Button btnNavHistorique;
-    @BindView(R.id.nav_spinner) Spinner btnNavSpinner;
-    @BindView(R.id.field_search_full) LinearLayout fieldSearchLayout;
+    DrawerLayout drawerLayout;
+    Button btnNavSearch;
+    Button btnNavHistorique;
+    Spinner btnNavSpinner;
+    LinearLayout fieldSearchLayout;
+
+//    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+//    @BindView(R.id.nav_search) Button btnNavSearch;
+//    @BindView(R.id.nav_historique) Button btnNavHistorique;
+//    @BindView(R.id.nav_spinner) Spinner btnNavSpinner;
+//    @BindView(R.id.field_search_full) LinearLayout fieldSearchLayout;
 
     String titleNavDrawer;
     String titleNav;
@@ -58,10 +60,16 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        btnNavSearch = (Button) findViewById(R.id.nav_search);
+        btnNavHistorique = (Button) findViewById(R.id.nav_historique);
+        btnNavSpinner = (Spinner) findViewById(R.id.nav_spinner);
+        fieldSearchLayout = (LinearLayout) findViewById(R.id.field_search_full);
+
         sharedPreferences = this.getPreferences(MODE_PRIVATE);
 
         //***** ButterKnife ********************
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
 
         //***** NAV TOGGLE ********************
         actionBarDrawerToggle = new ActionBarDrawerToggle(
@@ -92,6 +100,25 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
                 flickerService.getClassPhotos(fieldSearch.getText().toString(), sharedPreferences.getString(spinnerKey,"5"));
                 flickerAdapter.setClassPhoto(classPhoto);
                 //Toast.makeText(MainActivity.this, fieldSearch.getText().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnNavSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fieldSearchLayout.setVisibility(View.VISIBLE);
+                //Fermer le Drawer en cliquant
+                drawerLayout.closeDrawers();
+
+            }
+        });
+
+        btnNavHistorique.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fieldSearchLayout.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+
             }
         });
 
@@ -170,7 +197,8 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
     //***************************************************
     //            NAVIGATION DRAWER + ButterKnife
     //***************************************************
-    @OnClick(R.id.nav_search)
+
+   /* @OnClick(R.id.nav_search)
     public void navSearch(Button btnNavSearch) {
         fieldSearchLayout.setVisibility(View.VISIBLE);
         //Fermer le Drawer en cliquant
@@ -182,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
         fieldSearchLayout.setVisibility(View.GONE);
         drawerLayout.closeDrawers();
     }
-
+*/
 
     //***************************************************
     //            NAV TOGGLE
