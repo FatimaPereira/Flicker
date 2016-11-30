@@ -4,7 +4,6 @@
     <string name="drawer_close">Adieu Nav</string>
 
     <string-array name="number_array">
-        <item>Number Photos</item>
     <item>5</item>
     <item>10</item>
     <item>15</item>

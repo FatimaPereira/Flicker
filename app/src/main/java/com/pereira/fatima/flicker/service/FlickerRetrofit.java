@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 public interface FlickerRetrofit {
 
-    @GET("services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1")
-    Call<FlickrResponseDto> getPhotosRetrofit(@Query("tags") String query, @Query("api_key")String apiKey, @Query("per_page")String perPage);
+    @GET("services/rest/?method=flickr.photos.search&per_page=20&format=json&nojsoncallback=1")
+    Call<FlickrResponseDto> getPhotosRetrofit(@Query("tags") String query, @Query("api_key")String apiKey);
 }
 //@Query("per_page")String perPage

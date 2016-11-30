@@ -44,8 +44,7 @@ public class FlickerService extends Service {
 
 
         final Call<FlickrResponseDto> flickrResponseRetrofitCall =
-                retrofitService.getPhotosRetrofit(query,getResources().getString(R.string.flicker_api_key),
-                        getResources().get(R.array.number_array));
+                retrofitService.getPhotosRetrofit(query,getResources().getString(R.string.flicker_api_key));
         flickrResponseRetrofitCall.enqueue(new Callback<FlickrResponseDto>()
 
         {

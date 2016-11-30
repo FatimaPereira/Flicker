@@ -32,6 +32,9 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements FlickerResponseListener {
 
+    public static final String spinnerKey = "key";
+    public static final String TITLE = "Title";
+    public static final String URL = "Url";
     ListView listView;
     FlickerAdapter flickerAdapter = new FlickerAdapter();
     List<ClassPhoto> classPhoto = new ArrayList<>();
@@ -58,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
         ButterKnife.bind(this);
 
         //***** NAV TOGGLE ********************
-
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
@@ -69,55 +71,14 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        initSpinner();
 
-
-        //***** SPINNER ********************
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this,
-        R.array.number_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-
-        btnNavSpinner.setAdapter(adapter);
-
-        //***** ENREGISTREMENT VALEUR DANS PREFERENCES ********************
-        btnNavSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-             @Override
-             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Key", flickerAdapter.getItem(i).toString());
-                editor.commit();
-             }
-
-             @Override
-             public void onNothingSelected(AdapterView<?> adapterView) {
-
-             }
-        });
 
 //    flickerAdapter.classPhoto.add(new ClassPhoto("Chat","http://media.koreus.com/201409/109-insolite-34.jpg"));
 //    flickerAdapter.classPhoto.add(new ClassPhoto("Titre","http://media.koreus.com/201409/109-insolite-34.jpg"));
 //    flickerAdapter.classPhoto.add(new ClassPhoto("Titre","http://media.koreus.com/201409/109-insolite-34.jpg"));
 
-        listView = (ListView) findViewById(R.id.list_flick);
-        listView.setAdapter(flickerAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                ClassPhoto image = (ClassPhoto) flickerAdapter.getItem(i);
-                String title = image.getTitle();
-                String url = image.getUrl();
-                Intent intent = new Intent(MainActivity.this, FullScreenFlickerActivity.class);
-                intent.putExtra("Title",title);
-                intent.putExtra("Url",url);
-                startActivity(intent);
-            }
-        });
-
-        final EditText fieldSearch = (EditText) findViewById(R.id.search_textfield);
+        final EditText fieldSearch = listView();
 
         Button btnSearch = (Button) findViewById(R.id.btn_search);
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +94,32 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
 
 
     }
+
+    //***************************************************
+    //            LISTVIEW
+    //***************************************************
+
+    private EditText listView() {
+        listView = (ListView) findViewById(R.id.list_flick);
+        listView.setAdapter(flickerAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                ClassPhoto image = (ClassPhoto) flickerAdapter.getItem(i);
+                String title = image.getTitle();
+                String url = image.getUrl();
+                Intent intent = new Intent(MainActivity.this, FullScreenFlickerActivity.class);
+                intent.putExtra(TITLE,title);
+                intent.putExtra(URL,url);
+                startActivity(intent);
+            }
+        });
+
+        return (EditText) findViewById(R.id.search_textfield);
+    }
+
 
     //***************************************************
     //            WEB SERVICE
@@ -191,9 +178,6 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
     }
 
 
-
-
-
     //***************************************************
     //            NAV TOGGLE
     //***************************************************
@@ -222,5 +206,39 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
         return super.onOptionsItemSelected(item);
     }
 
+
+    //***************************************************
+    //            SPINNER
+    //***************************************************
+
+    private void initSpinner() {
+        //***** SPINNER ********************
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.number_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        btnNavSpinner.setAdapter(adapter);
+
+        //***** ENREGISTREMENT VALEUR DANS PREFERENCES ********************
+        btnNavSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("key", adapter.getItem(position).toString());
+                editor.commit();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        //Sauvegarde de la clef du nombre de photos
+        String preferences = sharedPreferences.getString(spinnerKey,"5");
+        btnNavSpinner.setSelection(adapter.getPosition(preferences));
+    }
 
 }
