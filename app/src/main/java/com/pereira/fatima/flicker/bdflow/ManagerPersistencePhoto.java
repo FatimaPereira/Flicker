@@ -15,31 +15,32 @@ import java.util.List;
  * Created by Human Booster on 30/11/2016.
  */
 
-public class PhotoPersistenceManager {
+public class ManagerPersistencePhoto {
 
-    public PhotoPersistenceManager(Context context) {
+    public ManagerPersistencePhoto(Context context) {
         FlowManager.init(new FlowConfig.Builder(context).openDatabasesOnInit(true).build());
     }
 
     public void savePhoto(ClassPhoto photo){
         try {
             photo.save();
+            Log.e("SAVED", "OK");
         } catch (Exception e) {
             Log.w("Save Photo", e.toString());
         }
     }
 
-    public List<ClassPhoto> getAllPhoto (String string) {
+    public List<ClassPhoto> getAllPhoto () {
         return SQLite.select()
                 .from(ClassPhoto.class)
                 .queryList();
     }
 
-    public List<ClassPhoto> getByUrl (String url) {
+    public ClassPhoto getByUrl (String url) {
         return SQLite.select()
                 .from(ClassPhoto.class)
                 .where(ClassPhoto_Table.url.eq(url))
-                .queryList();
+                .querySingle();
     }
 
     public void deletePhoto(ClassPhoto photo){
@@ -50,5 +51,6 @@ public class PhotoPersistenceManager {
             photo.save();
 
     }
+
 
 }

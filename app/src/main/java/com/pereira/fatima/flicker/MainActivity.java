@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.pereira.fatima.flicker.bdflow.ManagerPersistencePhoto;
 import com.pereira.fatima.flicker.service.FlickerResponseListener;
 import com.pereira.fatima.flicker.service.FlickerService;
 
@@ -29,6 +30,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FlickerResponseListener {
 
+//    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+//    @BindView(R.id.nav_search) Button btnNavSearch;
+//    @BindView(R.id.nav_historique) Button btnNavHistorique;
+//    @BindView(R.id.nav_spinner) Spinner btnNavSpinner;
+//    @BindView(R.id.field_search_full) LinearLayout fieldSearchLayout;
+
     public static final String spinnerKey = "key";
     public static final String TITLE = "Title";
     public static final String URL = "Url";
@@ -36,9 +43,7 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
     FlickerAdapter flickerAdapter = new FlickerAdapter();
     List<ClassPhoto> classPhoto = new ArrayList<>();
 
-    private SharedPreferences sharedPreferences;
     ActionBarDrawerToggle actionBarDrawerToggle;
-    ArrayAdapter<CharSequence> adapter;
 
     DrawerLayout drawerLayout;
     Button btnNavSearch;
@@ -46,15 +51,13 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
     Spinner btnNavSpinner;
     LinearLayout fieldSearchLayout;
 
-//    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
-//    @BindView(R.id.nav_search) Button btnNavSearch;
-//    @BindView(R.id.nav_historique) Button btnNavHistorique;
-//    @BindView(R.id.nav_spinner) Spinner btnNavSpinner;
-//    @BindView(R.id.field_search_full) LinearLayout fieldSearchLayout;
+    private SharedPreferences sharedPreferences;
+    ArrayAdapter<CharSequence> adapter;
 
-    String titleNavDrawer;
-    String titleNav;
+    ManagerPersistencePhoto managerPersistencePhoto;
 
+
+    //**************************************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
         btnNavHistorique = (Button) findViewById(R.id.nav_historique);
         btnNavSpinner = (Spinner) findViewById(R.id.nav_spinner);
         fieldSearchLayout = (LinearLayout) findViewById(R.id.field_search_full);
+
+        managerPersistencePhoto = new ManagerPersistencePhoto(this);
 
         sharedPreferences = this.getPreferences(MODE_PRIVATE);
 
@@ -118,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
             public void onClick(View view) {
                 fieldSearchLayout.setVisibility(View.GONE);
                 drawerLayout.closeDrawers();
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                flickerAdapter.setClassPhoto(managerPersistencePhoto.getAllPhoto());
 
             }
         });
@@ -138,12 +145,14 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 ClassPhoto image = (ClassPhoto) flickerAdapter.getItem(i);
+                managerPersistencePhoto.savePhoto(image);
                 String title = image.getTitle();
                 String url = image.getUrl();
                 Intent intent = new Intent(MainActivity.this, FullScreenFlickerActivity.class);
                 intent.putExtra(TITLE,title);
                 intent.putExtra(URL,url);
                 startActivity(intent);
+
             }
         });
 

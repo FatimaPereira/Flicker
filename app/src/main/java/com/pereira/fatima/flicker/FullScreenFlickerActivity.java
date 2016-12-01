@@ -38,8 +38,8 @@ public class FullScreenFlickerActivity extends AppCompatActivity {
         titreFullscreen = (TextView) findViewById(R.id.titre_fullscreen);
         urlFullscreen = (TextView) findViewById(R.id.url_fullscreen);
         imageFullscreen = (ImageView) findViewById(R.id.image_fullscreen);
-        titreFullscreen.setText(MainActivity.TITLE);
-        urlFullscreen.setText(MainActivity.URL);
+        titreFullscreen.setText(title);
+        urlFullscreen.setText(url);
         Picasso.with(this).load(url).into(imageFullscreen);
 
         Button btnResetFullScreen = (Button) findViewById(R.id.btn_reset_fullscreen);
