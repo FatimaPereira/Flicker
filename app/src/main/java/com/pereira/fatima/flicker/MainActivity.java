@@ -22,13 +22,14 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.pereira.fatima.flicker.bdflow.ManagerPersistencePhoto;
+import com.pereira.fatima.flicker.bdflow.OnRowDeleteListener;
 import com.pereira.fatima.flicker.service.FlickerResponseListener;
 import com.pereira.fatima.flicker.service.FlickerService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements FlickerResponseListener {
+public class MainActivity extends AppCompatActivity implements FlickerResponseListener, OnRowDeleteListener {
 
 //    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 //    @BindView(R.id.nav_search) Button btnNavSearch;
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
                 //Fermer le Drawer en cliquant
                 drawerLayout.closeDrawers();
 
+                flickerAdapter.setOnRowDeleteListener(null);
             }
         });
 
@@ -123,8 +125,11 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
             public void onClick(View view) {
                 fieldSearchLayout.setVisibility(View.GONE);
                 drawerLayout.closeDrawers();
-                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //sharedPreferences = getPreferences(MODE_PRIVATE);
+               // SharedPreferences.Editor editor = sharedPreferences.edit();
                 flickerAdapter.setClassPhoto(managerPersistencePhoto.getAllPhoto());
+
+                flickerAdapter.setOnRowDeleteListener(MainActivity.this);
 
             }
         });
@@ -283,5 +288,10 @@ public class MainActivity extends AppCompatActivity implements FlickerResponseLi
         String preferences = sharedPreferences.getString(spinnerKey,"5");
         btnNavSpinner.setSelection(adapter.getPosition(preferences));
     }
+    // Implement Methode
+    @Override
+    public void onRowDeleted(ClassPhoto classPhoto) {
+            managerPersistencePhoto.deletePhoto(classPhoto);
 
+    }
 }

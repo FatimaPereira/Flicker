@@ -9,6 +9,7 @@ package com.pereira.fatima.flicker;
         import android.widget.ImageView;
         import android.widget.TextView;
 
+        import com.pereira.fatima.flicker.bdflow.OnRowDeleteListener;
         import com.squareup.picasso.Picasso;
 
         import java.util.ArrayList;
@@ -21,6 +22,14 @@ package com.pereira.fatima.flicker;
 public class FlickerAdapter extends BaseAdapter {
 
     List<ClassPhoto> classPhoto = new ArrayList<>();
+
+
+    // Interface Listener Historic
+    OnRowDeleteListener onRowDeleteListener;
+    // Setter.Interface Listener Historic
+    public void setOnRowDeleteListener(OnRowDeleteListener onRowDeleteListener) {
+        this.onRowDeleteListener = onRowDeleteListener;
+    }
 
     public FlickerAdapter() {
     }
@@ -78,8 +87,14 @@ public class FlickerAdapter extends BaseAdapter {
         btnResetFlick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (onRowDeleteListener != null) {
+                // Interface Listener Historic
+                onRowDeleteListener.onRowDeleted(classPhoto.get(position));}
+
                 classPhoto.remove(classPhoto.get(position));
                 notifyDataSetChanged();
+
             }
         });
 
